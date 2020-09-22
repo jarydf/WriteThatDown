@@ -6,49 +6,103 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [formValid, setFormValid] = useState({
+    usernameValid: false,
+    emailValid: false,
+    passwordValid: false,
+    confirmPasswordValid: false,
+  });
 
   function usernameChange(e) {
-    setUsername(e.target.value);
-    console.log(e.target.value);
+    const name=e.target.name;
+    const value = e.target.value;
+    setUsername(value);
+    validateField(name,value);
   }
 
   function emailChange(e) {
-    setEmail(e.target.value);
-    console.log(e.target.value);
+    const name=e.target.name;
+    const value = e.target.value;
+    setEmail(value);
+    validateField(name,value);
   }
 
   function passwordChange(e) {
-    setPassword(e.target.value);
-    console.log(e.target.value);
+    const name=e.target.name;
+    const value = e.target.value;
+    setPassword(value);
+    validateField(name,value);
   }
 
   function confirmPasswordChange(e) {
-    setConfirmPassword(e.target.value);
-    console.log(confirmPassword);
+    const name=e.target.name;
+    const value = e.target.value;
+    setConfirmPassword(value);
+    validateField(name,value);
   }
 
-  function onSubmit() {
-    console.log(confirmPassword);
-    const newUser = {
-      username: username,
-      email: email,
-      password: password,
-    };
+  function validateField(fieldName, value) {
+    let usernameValid = formValid.usernameValid;
+    let emailValid = formValid.emailValid;
+    let passwordValid = formValid.passwordValid;
+    let confirmPasswordValid = formValid.confirmPasswordValid;
 
-    console.log(newUser);
+    switch (fieldName) {
+      case "username":
+        usernameValid = value.length >= 6;
+        break;
+      case "email":
+        var re = /\S+@\S+\.\S+/;
+        emailValid = re.test(value);
+        break;
+      case "password":
+        passwordValid = value.length >= 6;
+        break;
+      case "confirmPassword":
+        if(value===password){
+          confirmPasswordValid=true;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormValid(
+      {
+        usernameValid: usernameValid,
+        emailValid: emailValid,
+        passwordValid: passwordValid,
+        confirmPasswordValid: confirmPasswordValid,
+      }
+    );
+  }
 
-    axios
-      .post("http://localhost:5000/users/add", newUser)
-      .then(function (res) {
-        console.log(res.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    // setUsername('');
-    //   setEmail('');
-    //   setPassword('');
-    //   setConfirmPassword('');
+  function onSubmit(e) {
+    e.preventDefault();
+    if (formValid.usernameValid && formValid.emailValid && formValid.passwordValid && formValid.confirmPasswordValid) {
+      const newUser = {
+        username: username,
+        email: email,
+        password: password,
+      };
+      axios
+        .post("http://localhost:5000/users/register", newUser)
+        .then(function (res) {
+          setUsername("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          console.log(res.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      console.log(username);
+      console.log(email);
+      console.log(password);
+      console.log(confirmPassword);
+      console.log("form not valid");
+    }
   }
 
   return (
@@ -60,20 +114,28 @@ function Register() {
           <input
             type="text"
             name="username"
+            value={username}
             onChange={(e) => usernameChange(e)}
           />
 
-          <input type="text" name="email" onChange={(e) => emailChange(e)} />
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => emailChange(e)}
+          />
 
           <input
             type="password"
             name="password"
+            value={password}
             onChange={(e) => passwordChange(e)}
           />
 
           <input
             type="password"
             name="confirmPassword"
+            value={confirmPassword}
             onChange={(e) => confirmPasswordChange(e)}
           />
         </div>
@@ -89,56 +151,3 @@ function Register() {
   );
 }
 export default Register;
-
-// import React, { Component } from 'react';
-// import axios from 'axios';
-
-// export default class CreateUser extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.onChangeUsername = this.onChangeUsername.bind(this);
-//         this.onSubmit = this.onSubmit.bind(this);
-//         this.state = {
-//           username: ''
-//         };
-//       }
-//       onChangeUsername(e) {
-//         this.setState({
-//           username: e.target.value
-//         });
-//       }
-//       onSubmit(e) {
-//         e.preventDefault();
-//         const newUser = {
-//           username: this.state.username,
-//         };
-//         console.log(newUser);
-//         axios.post('http://localhost:5000/users/add', newUser)
-//          .then(res => console.log(res.data));
-
-//         this.setState({
-//           username: ''
-//         })
-//       }
-//   render() {
-//     return (
-//         <div>
-//         <h3>Create New User</h3>
-//         <form onSubmit={this.onSubmit}>
-//           <div className="form-group">
-//             <label>Username: </label>
-//             <input  type="text"
-//                 required
-//                 className="form-control"
-//                 value={this.state.username}
-//                 onChange={this.onChangeUsername}
-//                 />
-//           </div>
-//           <div className="form-group">
-//             <input type="submit" value="Create User" className="btn btn-primary" />
-//           </div>
-//         </form>
-//       </div>
-//     )
-//   }
-// }
