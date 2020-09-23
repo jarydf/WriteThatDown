@@ -12,6 +12,7 @@ function Register() {
     passwordValid: false,
     confirmPasswordValid: false,
   });
+  const[counter,setCounter]=useState(0);
 
   function usernameChange(e) {
     const name=e.target.name;
@@ -59,9 +60,7 @@ function Register() {
         passwordValid = value.length >= 6;
         break;
       case "confirmPassword":
-        if(value===password){
-          confirmPasswordValid=true;
-        }
+        confirmPasswordValid = (value===password) ? true : false;
         break;
       default:
         break;
@@ -78,6 +77,7 @@ function Register() {
 
   function onSubmit(e) {
     e.preventDefault();
+    setCounter(counter+1);
     if (formValid.usernameValid && formValid.emailValid && formValid.passwordValid && formValid.confirmPasswordValid) {
       const newUser = {
         username: username,
@@ -105,6 +105,15 @@ function Register() {
     }
   }
 
+  const error = {
+    color: "red",
+    border: "1px solid #eb516d"
+  };
+  const correct={
+    color: "#495057",
+    border: "1px solid #ced4da"
+    };
+
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
@@ -113,29 +122,40 @@ function Register() {
 
           <input
             type="text"
+            className="form-control"
             name="username"
             value={username}
+            style={formValid.usernameValid || counter<1 ? correct : error}
             onChange={(e) => usernameChange(e)}
           />
-
+          <br/>
+          <label>email</label>
           <input
             type="text"
+            className="form-control"
             name="email"
             value={email}
+            style={formValid.emailValid || counter<1 ? correct : error}
             onChange={(e) => emailChange(e)}
           />
-
+          <br/>
+          <label>password: </label>
           <input
             type="password"
+            className="form-control"
             name="password"
             value={password}
+            style={formValid.passwordValid || counter<1 ? correct : error}
             onChange={(e) => passwordChange(e)}
           />
-
+          <br/>
+          <label>confirm password: </label>
           <input
             type="password"
+            className="form-control"
             name="confirmPassword"
             value={confirmPassword}
+            style={formValid.confirmPasswordValid || counter<1 ? correct : error}
             onChange={(e) => confirmPasswordChange(e)}
           />
         </div>
