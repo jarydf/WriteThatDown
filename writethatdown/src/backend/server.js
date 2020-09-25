@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const passport = require("passport");
+// const passport = require("passport");
 const usersRouter = require('./routes/users');
 require('dotenv').config();
 
@@ -20,10 +20,10 @@ connection.once('open', () => {
 })
 
 // Passport middleware
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-// Passport config
-require("./routes/passport")(passport);
+// // Passport config
+// require("./routes/passport")(passport);
 
 app.use('/users', usersRouter);
 

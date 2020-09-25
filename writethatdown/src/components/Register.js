@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -13,6 +14,7 @@ function Register() {
     confirmPasswordValid: false,
   });
   const[counter,setCounter]=useState(0);
+  const history = useHistory();
 
   function usernameChange(e) {
     const name=e.target.name;
@@ -91,10 +93,12 @@ function Register() {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
+          console.log(res);
           console.log(res.data);
+          history.push("/login");
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error.response.data);
         });
     } else {
       console.log(username);
