@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function emailChange(e) {
+  function usernameChange(e) {
     const value = e.target.value;
-    setEmail(value);
+    setUsername(value);
   }
 
   function passwordChange(e) {
@@ -17,14 +17,13 @@ function Login() {
     function onSubmit(e) {
         e.preventDefault();
           const newLogin = {
-            email: email,
+            username: username,
             password: password,
           };
           axios
             .post("http://localhost:5000/users/Login", newLogin)
             .then(function (res) {
               console.log(res.data);
-              console.log("user logged in");
             })
             .catch(function (error) {
               console.log(error);
@@ -36,13 +35,13 @@ function Login() {
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <br/>
-          <label>email</label>
+          <label>username</label>
           <input
             type="text"
             className="form-control"
-            name="email"
-            value={email}
-            onChange={(e) => emailChange(e)}
+            name="username"
+            value={username}
+            onChange={(e) => usernameChange(e)}
           />
           <br/>
           <label>password: </label>

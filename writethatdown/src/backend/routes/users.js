@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const ExtractJwt = require("passport-jwt").ExtractJwt;
+const passport = require('passport'),
+  User = require('./../models/User'),
+  ExtractJWT = require('passport-jwt').ExtractJwt;
 const opts = {};
-require("dotenv").config();
+require('dotenv').config();
 
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('JWT');
 opts.secretOrKey = process.env.SECRET;
 
-router.post("/register", (req, res) => {
+router.post("/Register", (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       return res.status(400).json({ email: "Email already exists" });
@@ -36,45 +37,30 @@ router.post("/register", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  // Find user by email
-  User.findOne({ email }).then((user) => {
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ emailnotfound: "Email not found" });
+router.post('/Login', (req, res, next) => {
+  console.log(req.body);
+  passport.authenticate('login', {successRedirect:'/',failureRedirect:'/Login'},(err, user, info) => {
+    if (err) {
+      console.log(err);
     }
-    // Check password
-    bcrypt.compare(password, user.password).then((isMatch) => {
-      if (isMatch) {
-        // User matched
-        // Create JWT Payload
-        const payload = {
-          id: user._id,
-          name: user.username,
-        };
-        // Sign token
-        jwt.sign(
-          payload,
-          process.env.SECRET.secretOrKey,
-          {
-            expiresIn: 3600, // 1 year in seconds
-          },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token,
-            });
-          }
-        );
-      } else {
-        return res
-          .status(400)
-          .json({ passwordincorrect: "Password incorrect" });
-      }
-    });
-  });
+    if (info != undefined) {
+      console.log(info.message);
+      res.send(info.message);
+    } 
+    else {
+      req.logIn(user, err => {
+        User.findOne({username: user.username})
+        .then(user => {
+          const token = jwt.sign({ id: user.username }, opts.secretOrKey);
+          res.status(200).send({
+            auth: true,
+            token: token,
+            message: 'user found & logged in',
+          });
+        }).catch((err) => console.log(err));
+      });
+    }
+  })(req, res, next);;
 });
 
 module.exports = router;

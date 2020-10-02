@@ -87,7 +87,7 @@ function Register() {
         password: password,
       };
       axios
-        .post("http://localhost:5000/users/register", newUser)
+        .post("http://localhost:5000/users/Register", newUser)
         .then(function (res) {
           setUsername("");
           setEmail("");
