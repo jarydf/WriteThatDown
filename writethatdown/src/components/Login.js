@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const[isLoggedIn,setIsLoggedIn] = useState(false);
 
   function usernameChange(e) {
     const value = e.target.value;
@@ -24,12 +27,24 @@ function Login() {
             .post("http://localhost:5000/users/Login", newLogin)
             .then(function (res) {
               console.log(res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+              if (localStorage.getItem("user") === null) {
+                console.log("shit aint working bruv");
+                setIsLoggedIn(false);
+              }
+              else{console.log("works");
+              setIsLoggedIn(true);
+            }
             })
             .catch(function (error) {
               console.log(error);
             });
       }
-
+      useEffect(() => {
+        if (isLoggedIn===true){
+          history.push("/Home");
+        }
+      });
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
