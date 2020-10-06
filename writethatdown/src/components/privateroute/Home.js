@@ -10,9 +10,7 @@ function Home() {
       console.log("shit aint working bruv");
       history.push("/");
     }
-    else{console.log("works");
-    
-  }
+    else{console.log("works");}
   });
   
   return (

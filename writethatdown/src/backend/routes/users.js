@@ -42,10 +42,17 @@ router.post('/Login', (req, res, next) => {
   passport.authenticate('login', {successRedirect:'/',failureRedirect:'/Login'},(err, user, info) => {
     if (err) {
       console.log(err);
+      res.send({
+        auth: false,
+        message: err
+          });
     }
     if (info != undefined) {
       console.log(info.message);
-      res.send(info.message);
+      res.send({
+        auth: false,
+        message: info.message
+          });
     } 
     else {
       req.logIn(user, err => {
@@ -57,7 +64,12 @@ router.post('/Login', (req, res, next) => {
             token: token,
             message: 'user found & logged in',
           });
-        }).catch((err) => console.log(err));
+        })
+        .catch((err) =>
+          res.status(400).send({
+          auth: false,
+          message: err,
+        }));
       });
     }
   })(req, res, next);;
