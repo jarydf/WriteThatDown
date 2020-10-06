@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -7,7 +7,8 @@ const Login=()=> {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const errorStyle = useRef(null);
+  const [errorType,setErrorType]=useState("");
   function usernameChange(e) {
     const value = e.target.value;
     setUsername(value);
@@ -39,10 +40,12 @@ const Login=()=> {
         } else {
           console.log("shit aint working bruv");
           setIsLoggedIn(false);
-          history.push("/");
         }
         }
         else{
+          errorStyle.current.className="alert alert-danger";
+          errorStyle.current.role="alert";
+          setErrorType(res.data.message);
           console.log(res.data.message);
         }
       })
@@ -81,6 +84,7 @@ const Login=()=> {
         <div className="form-group">
           <input type="submit" value="Login" className="btn btn-primary" />
         </div>
+        <div ref={errorStyle}>{errorType}</div>
       </form>
     </div>
   );
