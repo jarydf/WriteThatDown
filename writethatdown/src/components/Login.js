@@ -6,7 +6,6 @@ const Login=()=> {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const errorStyle = useRef(null);
   const [errorType,setErrorType]=useState("");
   function usernameChange(e) {
@@ -35,11 +34,9 @@ const Login=()=> {
           localStorage.getItem("user") !== undefined
         ) {
           console.log("works");
-          setIsLoggedIn(true);
           history.push("/Home");
         } else {
           console.log("shit aint working bruv");
-          setIsLoggedIn(false);
         }
         }
         else{
@@ -54,9 +51,20 @@ const Login=()=> {
       });
   }
   useEffect(() => {
-    if (isLoggedIn === true) {
-      history.push("/Home");
+    try {
+      const token = localStorage.getItem("user");
+      if (token === null) {
+        console.log("not logged in");
+        
+      }
+      else {
+        console.log("already logged in");
+        history.push("/Home");
+      }
+    } catch(error) {
+      console.log(error.message);
     }
+     
   });
   return (
     <div>

@@ -13,10 +13,14 @@ const Navbar = () => {
     history.push("/");
   };
   useEffect(() => {
-      const token = localStorage.getItem("user");
-      const decode = jwt_decode(token);
-      console.log(decode.id);
-      setDisplayUsername(decode.id);
+      try {
+        const token = localStorage.getItem("user");
+        const decode = jwt_decode(token);
+        setDisplayUsername(decode.id);
+      } catch(error) {
+        console.log(error.message);
+      }
+      
   }, []);
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-lg">

@@ -6,11 +6,11 @@ function Home() {
   const history = useHistory();
   
   useEffect(() => {
-    if (localStorage.getItem("user") === null) {
-      console.log("shit aint working bruv");
+    if (localStorage.getItem("user") === null || localStorage.getItem("user") === undefined ) {
+      console.log("you arent logged in");
       history.push("/");
     }
-    else{console.log("works");}
+    else{console.log("you are still logged in");}
   });
   
   return (
