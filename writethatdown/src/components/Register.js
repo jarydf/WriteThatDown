@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./../css/Login.css";
@@ -86,9 +86,24 @@ function Register() {
     }
   }
 
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("user");
+      if (token === null) {
+        console.log("not logged in");
+        
+      }
+      else {
+        console.log("already logged in");
+        history.push("/Home");
+      }
+    } catch(error) {
+      console.log(error.message);
+    }
+     
+  });
+
   const error = {
-    color: "red",
-    border: "1px solid #eb516d",
     className:"alert alert-danger",
     role:"alert"
   };
