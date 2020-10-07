@@ -1,27 +1,30 @@
 import React, { useState, useEffect,useRef } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import "./../css/Login.css";
+import { Link } from "react-router-dom";
 
 const Login=()=> {
   const history = useHistory();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const[state,setState]=useState({
+    username:"",
+    password:""
+  });
   const errorStyle = useRef(null);
   const [errorType,setErrorType]=useState("");
-  function usernameChange(e) {
-    const value = e.target.value;
-    setUsername(value);
-  }
 
-  function passwordChange(e) {
-    const value = e.target.value;
-    setPassword(value);
+  const handleChange=(e)=>{
+    const{id,value}=e.target;
+    setState(prevState=>
+      ({...prevState,
+        [id]:value}
+    ));
   }
   function onSubmit(e) {
     e.preventDefault();
     const newLogin = {
-      username: username,
-      password: password,
+      username: state.username,
+      password: state.password,
     };
     axios
       .post("http://localhost:5000/users/Login", newLogin)
@@ -68,32 +71,25 @@ const Login=()=> {
   });
   return (
     <div>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
-          <br />
-          <label>username</label>
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            value={username}
-            onChange={(e) => usernameChange(e)}
-          />
-          <br />
-          <label>password: </label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={password}
-            onChange={(e) => passwordChange(e)}
-          />
+      <div className="wrapper fadeInDown">
+        <div id="formContent">
+          <div className="fadeIn first">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/1200px-OOjs_UI_icon_userAvatar.svg.png" id="icon" alt="User Icon" />
+          </div>
+          <form onSubmit={onSubmit}>
+            <input type="text" id="username" className="fadeIn second" name="username" placeholder="login" value={state.username} onChange={handleChange} />
+            <input type="text" id="password" className="fadeIn third" name="password" placeholder="password" value={state.password} onChange={handleChange} />
+            <input type="submit" className="fadeIn fourth" value="Login" onClick={onSubmit} />
+          </form>
+          <div id="formFooter">
+          <Link to="/Register" className="navbar-brand">
+             Don't have an account? Register Here
+          </Link>
+            <div ref={errorStyle}>{errorType}</div>
+          </div>
         </div>
-        <div className="form-group">
-          <input type="submit" value="Login" className="btn btn-primary" />
-        </div>
-        <div ref={errorStyle}>{errorType}</div>
-      </form>
+      </div>
+
     </div>
   );
 }

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import "./../css/Login.css";
+import { Link } from "react-router-dom";
 
 function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [formValid, setFormValid] = useState({
     usernameValid: false,
     emailValid: false,
@@ -16,31 +14,18 @@ function Register() {
   const[counter,setCounter]=useState(0);
   const history = useHistory();
 
-  function usernameChange(e) {
-    const name=e.target.name;
-    const value = e.target.value;
-    setUsername(value);
-    validateField(name,value);
-  }
-
-  function emailChange(e) {
-    const name=e.target.name;
-    const value = e.target.value;
-    setEmail(value);
-    validateField(name,value);
-  }
-
-  function passwordChange(e) {
-    const name=e.target.name;
-    const value = e.target.value;
-    setPassword(value);
-    validateField(name,value);
-  }
-
-  function confirmPasswordChange(e) {
-    const name=e.target.name;
-    const value = e.target.value;
-    setConfirmPassword(value);
+  const[state,setState]=useState({
+    username:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  });
+  const handleChange=(e)=>{
+    const{name,value}=e.target;
+    setState(prevState=>
+      ({...prevState,
+        [name]:value}
+    ));
     validateField(name,value);
   }
 
@@ -62,7 +47,7 @@ function Register() {
         passwordValid = value.length >= 6;
         break;
       case "confirmPassword":
-        confirmPasswordValid = (value===password) ? true : false;
+        confirmPasswordValid = (value===state.password) ? true : false;
         break;
       default:
         break;
@@ -82,36 +67,30 @@ function Register() {
     setCounter(counter+1);
     if (formValid.usernameValid && formValid.emailValid && formValid.passwordValid && formValid.confirmPasswordValid) {
       const newUser = {
-        username: username,
-        email: email,
-        password: password,
+        username: state.username,
+        email: state.email,
+        password: state.password,
       };
       axios
         .post("http://localhost:5000/users/Register", newUser)
         .then(function (res) {
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
           console.log(res);
           console.log(res.data);
-          history.push("/login");
+          history.push("/");
         })
         .catch(function (error) {
           console.log(error.response.data);
         });
     } else {
-      console.log(username);
-      console.log(email);
-      console.log(password);
-      console.log(confirmPassword);
       console.log("form not valid");
     }
   }
 
   const error = {
     color: "red",
-    border: "1px solid #eb516d"
+    border: "1px solid #eb516d",
+    className:"alert alert-danger",
+    role:"alert"
   };
   const correct={
     color: "#495057",
@@ -120,57 +99,29 @@ function Register() {
 
   return (
     <div>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
-          <label>Username: </label>
+      <div>
+      <div className="wrapper fadeInDown">
+        <div id="formContent">
+          <div className="fadeIn first">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/1200px-OOjs_UI_icon_userAvatar.svg.png" id="icon" alt="User Icon" />
+          </div>
+          <form onSubmit={onSubmit}>
+            <input type="text" id="username" className="fadeIn second" name="username" placeholder="login" value={state.username} style={formValid.emailValid || counter<1 ? correct : error} onChange={handleChange} />
+            <input type="text" id="email" className="fadeIn second" name="email" placeholder="email" value={state.email} style={formValid.emailValid || counter<1 ? correct : error} onChange={handleChange} />
+            <input type="text" id="password" className="fadeIn second" name="password" placeholder="password" value={state.password} style={formValid.emailValid || counter<1 ? correct : error} onChange={handleChange} />
+            <input type="text" id="confirmPassword" className="fadeIn second" name="confirmPassword" placeholder="confirmPassword" value={state.confirmPassword} style={formValid.emailValid || counter<1 ? correct : error} onChange={handleChange} />
+            <input type="submit" className="fadeIn third" value="Login" onClick={onSubmit} />
+          </form>
+          <div id="formFooter">
+          <Link to="/" className="navbar-brand">
+             Back to Login
+          </Link>
+            <div></div>
+          </div>
+        </div>
+      </div>
 
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            value={username}
-            style={formValid.usernameValid || counter<1 ? correct : error}
-            onChange={(e) => usernameChange(e)}
-          />
-          <br/>
-          <label>email</label>
-          <input
-            type="text"
-            className="form-control"
-            name="email"
-            value={email}
-            style={formValid.emailValid || counter<1 ? correct : error}
-            onChange={(e) => emailChange(e)}
-          />
-          <br/>
-          <label>password: </label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={password}
-            style={formValid.passwordValid || counter<1 ? correct : error}
-            onChange={(e) => passwordChange(e)}
-          />
-          <br/>
-          <label>confirm password: </label>
-          <input
-            type="password"
-            className="form-control"
-            name="confirmPassword"
-            value={confirmPassword}
-            style={formValid.confirmPasswordValid || counter<1 ? correct : error}
-            onChange={(e) => confirmPasswordChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="submit"
-            value="Create User"
-            className="btn btn-primary"
-          />
-        </div>
-      </form>
+    </div>
     </div>
   );
 }
