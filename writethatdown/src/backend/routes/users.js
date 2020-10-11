@@ -47,7 +47,7 @@ router.post('/Login', (req, res, next) => {
         message: err
           });
     }
-    if (info != undefined) {
+    if (info !== undefined) {
       console.log(info.message);
       res.send({
         auth: false,
