@@ -59,6 +59,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^4.1.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
