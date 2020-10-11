@@ -14,11 +14,8 @@ const Login=()=> {
   const [errorType,setErrorType]=useState("");
 
   const handleChange=(e)=>{
-    const{id,value}=e.target;
-    setState(prevState=>
-      ({...prevState,
-        [id]:value}
-    ));
+    const{name,value}=e.target;
+    setState(prevState=> ( { ...prevState, [name] : value } ));
   }
   function onSubmit(e) {
     e.preventDefault();
