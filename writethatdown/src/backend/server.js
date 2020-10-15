@@ -22,11 +22,10 @@ connection.once('open', () => {
 // Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+
 // Add the line below, which you're missing:
 require('./routes/passport-auth')
-
 app.use('/users', usersRouter)
-
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`)
 })
