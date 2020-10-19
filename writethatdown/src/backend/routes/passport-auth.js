@@ -11,13 +11,13 @@ opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('JWT')
 opts.secretOrKey = process.env.SECRET
 
 //passport needs this for some reason
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user);
+// });
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
+// passport.deserializeUser(function (user, done) {
+//   done(null, user);
+// });
 
 passport.use(
   'login',

@@ -38,7 +38,7 @@ router.post('/Register', (req, res) => {
 })
 
 router.post('/Login', (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   passport.authenticate('login',{session: false},(err, user, info) => {
     if (err) {
       console.log(err)
@@ -48,11 +48,12 @@ router.post('/Login', (req, res, next) => {
       })
     }
     if (info !== undefined) {
-      console.log(info.message)
+      console.log(info.message);
       res.send({
+        auth: false,
         message: info.message
       })
-    }
+    } 
     else {
       req.logIn(user, {session:false}, (err) => {
         if (err) return next(err)
