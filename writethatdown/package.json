@@ -16,6 +16,7 @@
     "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "eslint-plugin-dependencies": "^2.4.0",
     "express": "^4.17.1",
     "history": "^5.0.0",
     "is-empty": "^1.2.0",
@@ -44,8 +45,7 @@
     "eject": "react-scripts eject",
     "server": "nodemon ./src/backend/server.js",
     "dev": "concurrently \"npm run server\" \"npm start\"",
-    "proxy": "http://localhost:5000",
-    "eslint": "eslint src"
+    "proxy": "http://localhost:5000"
   },
   "browserslist": {
     "production": [
@@ -61,13 +61,7 @@
   },
   "devDependencies": {
     "eslint": "^7.11.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-config-standard-jsx": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.4",
-    "eslint-plugin-standard": "^4.0.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
     "redux-devtools": "^3.7.0"
