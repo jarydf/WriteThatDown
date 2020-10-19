@@ -39,7 +39,7 @@ router.post('/Register', (req, res) => {
 
 router.post('/Login', (req, res, next) => {
   console.log(req.body)
-  passport.authenticate('login', { successRedirect: '/', failureRedirect: '/Login' }, (err, user, info) => {
+  passport.authenticate('login',{session: false},(err, user, info) => {
     if (err) {
       console.log(err)
       res.send({
@@ -50,11 +50,11 @@ router.post('/Login', (req, res, next) => {
     if (info !== undefined) {
       console.log(info.message)
       res.send({
-        auth: false,
         message: info.message
       })
-    } else {
-      req.logIn(user, err => {
+    }
+    else {
+      req.logIn(user, {session:false}, (err) => {
         if (err) return next(err)
         User.findOne({ username: user.username })
           .then(user => {

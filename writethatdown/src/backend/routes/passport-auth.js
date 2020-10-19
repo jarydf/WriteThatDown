@@ -2,13 +2,22 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/User')
-const JWTstrategy = require('passport-jwt').Strategy
+const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
 const opts = {}
 require('dotenv').config()
 
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('JWT')
 opts.secretOrKey = process.env.SECRET
+
+//passport needs this for some reason
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
 
 passport.use(
   'login',
@@ -42,27 +51,28 @@ passport.use(
   )
 )
 
-passport.use(
-  'jwt',
-  new JWTstrategy(opts, (jwtPayload, done) => {
-    try {
-      User.findOne({
-        where: {
-          username: jwtPayload.id
-        }
-      }).then(user => {
-        if (user) {
-          console.log('user found in db in passport')
-          // note the return removed with passport JWT - add this return for passport local
-          done(null, user)
-        } else {
-          console.log('user not found in db')
-          done(null, false)
-        }
-      })
-    } catch (err) {
-      done(err)
-    }
-  })
-)
+//need this code for passport jwt combo:
+
+// passport.use(
+//   'jwt',
+//   new JWTStrategy(opts, (jwtPayload, done) => {
+//     try {
+//       User.findOne({
+//         where: {
+//           username: jwtPayload.id
+//         }
+//       }).then(user => {
+//         if (user) {
+//           console.log('user found in db in passport')
+//           done(null, user)
+//         } else {
+//           console.log('user not found in db')
+//           done(null, false)
+//         }
+//       })
+//     } catch (err) {
+//       done(err)
+//     }
+//   })
+// )
 module.exports = passport
