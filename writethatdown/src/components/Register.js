@@ -19,6 +19,7 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({
@@ -103,8 +104,8 @@ function Register() {
   });
 
   const error = {
-    className: "alert alert-danger",
-    role: "alert",
+    color: "#df4759",
+    border: "1px solid #df4759",
   };
   const correct = {
     color: "#495057",
@@ -131,7 +132,7 @@ function Register() {
                 name="username"
                 placeholder="login"
                 value={state.username}
-                style={formValid.emailValid || counter < 1 ? correct : error}
+                style={formValid.usernameValid || counter < 1 ? correct : error}
                 onChange={handleChange}
               />
               <input
@@ -151,7 +152,7 @@ function Register() {
                 name="password"
                 placeholder="password"
                 value={state.password}
-                style={formValid.emailValid || counter < 1 ? correct : error}
+                style={formValid.passwordValid || counter < 1 ? correct : error}
                 onChange={handleChange}
               />
               <input
@@ -161,7 +162,11 @@ function Register() {
                 name="confirmPassword"
                 placeholder="confirmPassword"
                 value={state.confirmPassword}
-                style={formValid.emailValid || counter < 1 ? correct : error}
+                style={
+                  formValid.confirmPasswordValid || counter < 1
+                    ? correct
+                    : error
+                }
                 onChange={handleChange}
               />
               <input
