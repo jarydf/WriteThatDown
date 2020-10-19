@@ -6,5 +6,6 @@
         "writethatdowndb"
     ],
     "eslint.enable": false,
-    "python.pythonPath": "C:\\Program Files (x86)\\Python38-32\\python.exe"
+    "python.pythonPath": "C:\\Program Files (x86)\\Python38-32\\python.exe",
+    "compile-hero.disable-compile-files-on-did-save-code": true
 }

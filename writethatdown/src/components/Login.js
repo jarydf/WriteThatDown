@@ -35,7 +35,7 @@ const Login = () => {
             console.log("works");
             history.push("/Home");
           } else {
-            console.log("shit aint working bruv");
+            console.log("shit ain't working bruv");
           }
         } else {
           errorStyle.current.className = "alert alert-danger";
