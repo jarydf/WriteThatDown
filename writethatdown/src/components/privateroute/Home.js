@@ -11,7 +11,7 @@ function Home() {
       localStorage.getItem("user") === null ||
       localStorage.getItem("user") === undefined
     ) {
-      console.log("you arent logged in");
+      console.log("you aren't logged in");
       history.push("/");
     } else {
       console.log("you are still logged in");
