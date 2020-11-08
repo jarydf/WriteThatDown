@@ -8,7 +8,7 @@ const NewNote = () => {
   const [state, setState] = useState({
     title: "",
     body: "",
-    author: "",
+    username: "",
   });
   const openNav = () => {
     setStyleHeight({ width: "100vw" });
@@ -29,30 +29,37 @@ const NewNote = () => {
     try {
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
-      setState({ author: decode.id });
+      setState({ username: decode.username });
     } catch (error) {
       console.log(error.message);
     }
   }, []);
   function onSubmit(e) {
     e.preventDefault();
-    const newNote = {
-      title: state.title,
-      body: state.body,
-      author: state.author,
-    };
-    axios
-      .post("http://localhost:5000/notes/createNote", newNote)
-      .then(function (res) {
-        console.log(res.data);
-        console.log("note created");
-        setStyleHeight({ width: "0vw" });
-        setState({ title: "", body: "", author: "" });
-      })
-      .catch(function (error) {
-        console.log(error.data);
-        console.log("not working");
-      });
+    try {
+      const token = localStorage.getItem("user");
+      const decode = jwtDecode(token);
+      const newNote = {
+        title: state.title,
+        body: state.body,
+        username: state.username,
+        userId: decode.id,
+      };
+      axios
+        .post("http://localhost:5000/notes/createNote", newNote)
+        .then(function (res) {
+          console.log(res.data);
+          console.log("note created");
+          setStyleHeight({ width: "0vw" });
+          setState({ title: "", body: "", username: state.username });
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          console.log("not working");
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   return (

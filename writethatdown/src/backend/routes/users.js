@@ -14,7 +14,7 @@ opts.secretOrKey = process.env.SECRET;
 router.post("/Register", (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
-      return res.status(400).json({ email: "Email already exists" });
+      return res.status(400).json({ message: "Email already exists" });
     } else {
       const newUser = new User({
         username: req.body.username,
@@ -58,7 +58,10 @@ router.post("/Login", (req, res, next) => {
         if (err) return next(err);
         User.findOne({ username: user.username })
           .then((user) => {
-            const token = jwt.sign({ id: user.username }, opts.secretOrKey);
+            const token = jwt.sign(
+              { id: user._id, username: user.username },
+              opts.secretOrKey
+            );
             res.status(200).send({
               auth: true,
               token: token,
