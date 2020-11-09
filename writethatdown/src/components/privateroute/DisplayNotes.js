@@ -33,15 +33,23 @@ const DisplayNotes = () => {
     return <div>Loading...</div>;
   } else {
     return (
-      <ul>
+      <div className="notes">
         {notes.map((note) => (
-          <li key={note._id}>
-            <h3>{note.title}</h3>
-            <p>{note.body}</p>
-            <p>{note.author.username}</p>
-          </li>
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="card" width="18rem">
+                <div className="card-body" key={note._id}>
+                  <h5 className="card-title">{note.title}</h5>
+                  <h6 className="card-subtitle mb-2 text-muted">
+                    {note.author.username}
+                  </h6>
+                  <p className="card-text">{note.body}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
 };
