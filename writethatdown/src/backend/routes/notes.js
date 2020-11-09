@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require("./../models/User");
 const Note = require("./../models/Note");
 
+//CREATE NOTE FUNCTION
 router.post("/createNote", (req, res) => {
   console.log(req.body);
-
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
@@ -21,6 +21,46 @@ router.post("/createNote", (req, res) => {
           .save()
           .then((note) => res.json(note))
           .catch((err) => console.log(err));
+      }
+    })
+    .catch((err) =>
+      res.status(400).send({
+        message: err,
+      })
+    );
+});
+
+//GET NOTE FUNCTION
+router.get("/getNotes", (req, res) => {
+  const userId = req.body.userId;
+  Note.find({ _id: userId })
+    .then((notes) => {
+      res.status(200).json(notes);
+    })
+    .catch((err) =>
+      res.status(404).json({ message: "No post found with that ID" })
+    );
+});
+
+//IN CASE I WANT A SEPARATE UPDATE FUNCTION
+router.route("/update").post(function (req, res) {
+  console.log(req.body);
+  const username = req.body.username;
+  const newNote = new Note({
+    title: req.body.title,
+    body: req.body.body,
+    author: { id: req.body.userId, username: req.body.username },
+  });
+  User.findOneAndUpdate(
+    { username },
+    { $push: { notes: newNote } },
+    { new: true }
+  )
+    .then((user) => {
+      if (!user) {
+        return res.status(400).json({ message: "user does not exist" });
+      } else {
+        return res.send(user);
       }
     })
     .catch((err) =>

@@ -28,6 +28,10 @@ const Note = mongoose.model(
         maxlength: 50,
       },
     },
+    date: {
+      type: Date,
+      default: Date.now,
+    },
   })
 );
 

@@ -57,6 +57,17 @@ const NewNote = () => {
           console.log(error.response.data);
           console.log("not working");
         });
+
+      axios
+        .post("http://localhost:5000/notes/update", newNote)
+        .then(function (res) {
+          console.log(res.data);
+          console.log("note updated");
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          console.log("not working");
+        });
     } catch (error) {
       console.log(error.message);
     }
