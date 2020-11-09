@@ -33,13 +33,13 @@ router.post("/createNote", (req, res) => {
 //GET NOTE FUNCTION
 router.get("/getNotes", (req, res) => {
   const userId = req.body.userId;
-  Note.find({ _id: userId })
-    .then((notes) => {
-      res.status(200).json(notes);
-    })
-    .catch((err) =>
-      res.status(404).json({ message: "No post found with that ID" })
-    );
+  Note.find((err, user) => {
+    // Note that this error doesn't mean nothing was found,
+    // it means the database had an error while searching, hence the 500 status
+    if (err) return res.status(500).send(err);
+    // send the list of all user
+    return res.status(200).send(user);
+  });
 });
 
 //IN CASE I WANT A SEPARATE UPDATE FUNCTION
