@@ -6,6 +6,7 @@ const DisplayNotes = () => {
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     try {
       const token = localStorage.getItem("user");
@@ -25,28 +26,36 @@ const DisplayNotes = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [notes]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
+    const group = (notes, n) =>
+      notes.reduce((acc, x, i) => {
+        const idx = Math.floor(i / n);
+        acc[idx] = [...(acc[idx] || []), x];
+        return acc;
+      }, []);
     return (
       <div className="notes">
-        {notes.map((note) => (
+        {group(notes, 3).map((rows) => (
           <div className="row">
-            <div className="col-sm-6">
-              <div className="card" width="18rem">
-                <div className="card-body" key={note._id}>
-                  <h5 className="card-title">{note.title}</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">
-                    {note.author.username}
-                  </h6>
-                  <p className="card-text">{note.body}</p>
+            {rows.map((note, i) => (
+              <div className="col-lg-4">
+                <div className="card" width="18rem">
+                  <div className="card-body">
+                    <h5 className="card-title">{note.title}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {note.author.username}
+                    </h6>
+                    <p className="card-text">{note.body}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         ))}
       </div>
