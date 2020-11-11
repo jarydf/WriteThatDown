@@ -38,7 +38,6 @@ router.post("/Register", (req, res) => {
 });
 
 router.post("/Login", (req, res, next) => {
-  console.log(req.body);
   passport.authenticate("login", { session: false }, (err, user, info) => {
     if (err) {
       console.log(err);

@@ -12,7 +12,7 @@ const DisplayNotes = () => {
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
-      axios.get("http://localhost:5000/notes/getNotes", user).then(
+      axios.post("http://localhost:5000/notes/getMyNotes", user).then(
         (response) => {
           setIsLoaded(true);
           setNotes(response.data);

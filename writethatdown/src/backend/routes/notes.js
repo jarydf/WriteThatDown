@@ -5,7 +5,6 @@ const Note = require("./../models/Note");
 
 //CREATE NOTE FUNCTION
 router.post("/createNote", (req, res) => {
-  console.log(req.body);
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
@@ -31,20 +30,21 @@ router.post("/createNote", (req, res) => {
 });
 
 //GET NOTE FUNCTION
-router.get("/getNotes", (req, res) => {
+router.post("/getMyNotes", (req, res) => {
   const userId = req.body.userId;
-  Note.find((err, user) => {
+  Note.find({ "author.id": userId }, (err, note) => {
     // Note that this error doesn't mean nothing was found,
     // it means the database had an error while searching, hence the 500 status
     if (err) return res.status(500).send(err);
     // send the list of all user
-    return res.status(200).send(user);
+    else {
+      return res.status(200).send(note);
+    }
   });
 });
 
 //IN CASE I WANT A SEPARATE UPDATE FUNCTION
 router.route("/update").post(function (req, res) {
-  console.log(req.body);
   const username = req.body.username;
   const newNote = new Note({
     title: req.body.title,
