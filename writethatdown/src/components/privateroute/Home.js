@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
-import HomeBody from "./HomeBody";
+import NewNote from "./NewNote";
+import DisplayMyNotes from "./DisplayMyNotes";
 
 function Home() {
   const history = useHistory();
@@ -19,9 +20,14 @@ function Home() {
   });
 
   return (
-    <div>
+    <div className="Home">
       <Navbar />
-      <HomeBody />
+      <div className="CreateNote">
+        <NewNote />
+      </div>
+      <div>
+        <DisplayMyNotes />
+      </div>
     </div>
   );
 }

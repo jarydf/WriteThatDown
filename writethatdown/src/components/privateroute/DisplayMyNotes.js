@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const DisplayNotes = () => {
+const DisplayMyNotes = () => {
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +12,7 @@ const DisplayNotes = () => {
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
-      axios.post("http://localhost:5000/notes/getNotes", user).then(
+      axios.post("http://localhost:5000/notes/getMyNotes", user).then(
         (response) => {
           setIsLoaded(true);
           setNotes(response.data);
@@ -62,4 +62,4 @@ const DisplayNotes = () => {
     );
   }
 };
-export default DisplayNotes;
+export default DisplayMyNotes;

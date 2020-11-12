@@ -43,6 +43,19 @@ router.post("/getMyNotes", (req, res) => {
   });
 });
 
+router.post("/getNotes", (req, res) => {
+  const userId = req.body.userId;
+  Note.find((err, note) => {
+    // Note that this error doesn't mean nothing was found,
+    // it means the database had an error while searching, hence the 500 status
+    if (err) return res.status(500).send(err);
+    // send the list of all user
+    else {
+      return res.status(200).send(note);
+    }
+  });
+});
+
 //IN CASE I WANT A SEPARATE UPDATE FUNCTION
 router.route("/update").post(function (req, res) {
   const username = req.body.username;
