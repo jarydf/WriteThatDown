@@ -43,8 +43,7 @@ router.post("/getMyNotes", (req, res) => {
   });
 });
 
-router.post("/getNotes", (req, res) => {
-  const userId = req.body.userId;
+router.get("/getNotes", (req, res) => {
   Note.find((err, note) => {
     // Note that this error doesn't mean nothing was found,
     // it means the database had an error while searching, hence the 500 status

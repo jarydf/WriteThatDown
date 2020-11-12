@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 
 const DisplayNotes = () => {
   const [notes, setNotes] = useState([]);
@@ -9,10 +8,7 @@ const DisplayNotes = () => {
 
   useEffect(() => {
     try {
-      const token = localStorage.getItem("user");
-      const decode = jwtDecode(token);
-      const user = { userId: decode.id };
-      axios.post("http://localhost:5000/notes/getNotes", user).then(
+      axios.get("http://localhost:5000/notes/getNotes").then(
         (response) => {
           setIsLoaded(true);
           setNotes(response.data);
