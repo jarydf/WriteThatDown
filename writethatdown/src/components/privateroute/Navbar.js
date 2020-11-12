@@ -26,6 +26,9 @@ const Navbar = () => {
       <Link to="/Home" className="navbar-brand">
         Home
       </Link>
+      <Link to="/PublicNotes" className="navbar-brand">
+        PublicNotes
+      </Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="navbar-brand">{displayUsername}</li>

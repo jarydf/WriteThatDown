@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewNote from "./NewNote";
-import DisplayMyNotes from "./DisplayMyNotes";
+import DisplayNotes from "./DisplayNotes";
 
-function Home() {
+function PublicNotes() {
   const history = useHistory();
 
   useEffect(() => {
@@ -20,15 +20,15 @@ function Home() {
   });
 
   return (
-    <div className="Home">
+    <div className="PublicNotes">
       <Navbar />
       <div className="CreateNote">
         <NewNote />
       </div>
-      <div className="DisplayMyNotes">
-        <DisplayMyNotes />
+      <div className="DisplayNotes">
+        <DisplayNotes />
       </div>
     </div>
   );
 }
-export default Home;
+export default PublicNotes;
