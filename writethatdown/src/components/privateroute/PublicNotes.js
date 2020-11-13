@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewNote from "./NewNote";
 import DisplayNotes from "./DisplayNotes";
+import "./../../css/FixedButton.css";
 
 function PublicNotes() {
   const history = useHistory();

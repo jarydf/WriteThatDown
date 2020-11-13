@@ -1,0 +1,6 @@
+li{
+    padding-right: 1em;
+}
+.CreateNote-nav button:after{
+    content:'Create a New Note';
+}

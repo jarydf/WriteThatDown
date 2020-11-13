@@ -60,11 +60,11 @@ const NewNote = () => {
 
       axios
         .post("http://localhost:5000/notes/update", newNote)
-        .then(function (res) {
+        .then((res) => {
           console.log(res.data);
           console.log("note updated");
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error.response.data);
           console.log("not working");
         });
@@ -76,7 +76,7 @@ const NewNote = () => {
   return (
     <div>
       <div className="overlay" style={styleHeight}>
-        <button className="closebtn" onClick={closeNav}>
+        <button type="button" className="closebtn" onClick={closeNav}>
           ×
         </button>
         <div className="overlay-content">
@@ -107,7 +107,11 @@ const NewNote = () => {
           />
         </div>
       </div>
-      <button onClick={openNav}>Create a New Note</button>
+      <button
+        type="button"
+        className="btn btn-light"
+        onClick={openNav}
+      ></button>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewNote from "./NewNote";
 import DisplayMyNotes from "./DisplayMyNotes";
+import "./../../css/FixedButton.css";
 
 function Home() {
   const history = useHistory();
