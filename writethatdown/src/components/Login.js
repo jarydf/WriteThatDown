@@ -83,7 +83,7 @@ const Login = () => {
               onChange={handleChange}
             />
             <input
-              type="text"
+              type="password"
               id="password"
               className="fadeIn third"
               name="password"

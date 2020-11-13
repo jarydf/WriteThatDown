@@ -16,7 +16,6 @@ const DisplayMyNotes = () => {
         (response) => {
           setIsLoaded(true);
           setNotes(response.data);
-          console.log(response.data);
         },
         (error) => {
           setIsLoaded(true);
@@ -41,10 +40,10 @@ const DisplayMyNotes = () => {
       }, []);
     return (
       <div className="notes">
-        {group(notes, 3).map((rows) => (
-          <div className="row">
-            {rows.map((note, i) => (
-              <div className="col-lg-4">
+        {group(notes, 3).map((rows, i) => (
+          <div className="row" key={i}>
+            {rows.map((note) => (
+              <div className="col-lg-4" key={note._id}>
                 <div className="card" width="18rem">
                   <div className="card-body">
                     <h5 className="card-title">{note.title}</h5>
