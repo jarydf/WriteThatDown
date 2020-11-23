@@ -16,7 +16,7 @@ const Login = () => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
-  function onSubmit(e) {
+  const onSubmit = (e) => {
     e.preventDefault();
     const newLogin = {
       username: state.username,
@@ -24,8 +24,7 @@ const Login = () => {
     };
     axios
       .post("http://localhost:5000/users/Login", newLogin)
-      .then(function (res) {
-        console.log(res.data);
+      .then((res) => {
         if (res.data.auth === true) {
           localStorage.setItem("user", JSON.stringify(res.data));
           if (
@@ -35,7 +34,7 @@ const Login = () => {
             console.log("works");
             history.push("/Home");
           } else {
-            console.log("shit ain't working bruv");
+            console.log("login is not working");
           }
         } else {
           errorStyle.current.className = "alert alert-danger";
@@ -47,7 +46,7 @@ const Login = () => {
       .catch(function (error) {
         console.log(error.data);
       });
-  }
+  };
   useEffect(() => {
     try {
       const token = localStorage.getItem("user");

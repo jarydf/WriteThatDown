@@ -7,6 +7,31 @@ const DisplayMyNotes = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const deleteNote = (e) => {
+    e.preventDefault();
+    // try {
+    //   const { id } = e.target;
+    //   const data = {
+    //     id: id,
+    //   };
+    //   axios
+    //     .delete("http://localhost:5000/notes/deleteNote", data)
+    //     .then(
+    //       (response) => {
+    //         console.log(response.data);
+    //       },
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //     )
+    //     .catch((error) => {
+    //       console.log(error.response.data);
+    //     });
+    // } catch (error) {
+    //   console.log(error.response.data);
+    // }
+  };
+
   useEffect(() => {
     try {
       const token = localStorage.getItem("user");
@@ -25,7 +50,7 @@ const DisplayMyNotes = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [notes]);
+  }, []);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -46,6 +71,9 @@ const DisplayMyNotes = () => {
               <div className="col-lg-4" key={note._id}>
                 <div className="card" width="18rem">
                   <div className="card-body">
+                    <button id={note._id} onClick={deleteNote}>
+                      x
+                    </button>
                     <h5 className="card-title">{note.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {note.author.username}
