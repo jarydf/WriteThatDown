@@ -14,7 +14,7 @@ router.post("/createNote", (req, res) => {
     if (err) return res.status(500).send(err);
   })
     .populate("author", "_id")
-    .exec((err,post) => {
+    .exec((err, post) => {
       if (err) return res.status(500).send(err);
       else {
         console.log("Populated User: " + post);
@@ -88,13 +88,15 @@ router.post("/update", (req, res) => {
 });
 
 router.delete("/deleteNote", (req, res) => {
-  const id = req.body.id;
-  User.findByIdAndRemove(id, (err, note) => {
-    console.log("clicked");
+  const { id } = req.query;
+  Note.findByIdAndRemove(id, (err, data) => {
+    console.log("id is : " + id);
     if (err) {
       console.log(err);
+      throw err;
     } else {
-      console.log("Removed Note : ", note);
+      console.log("Removed Note : ", data);
+      res.status(204).json(data);
     }
   });
 });

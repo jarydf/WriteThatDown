@@ -9,27 +9,27 @@ const DisplayMyNotes = () => {
 
   const deleteNote = (e) => {
     e.preventDefault();
-    // try {
-    //   const { id } = e.target;
-    //   const data = {
-    //     id: id,
-    //   };
-    //   axios
-    //     .delete("http://localhost:5000/notes/deleteNote", data)
-    //     .then(
-    //       (response) => {
-    //         console.log(response.data);
-    //       },
-    //       (error) => {
-    //         console.log(error);
-    //       }
-    //     )
-    //     .catch((error) => {
-    //       console.log(error.response.data);
-    //     });
-    // } catch (error) {
-    //   console.log(error.response.data);
-    // }
+    try {
+      const { id } = e.target;
+      console.log(id);
+      axios
+        .delete("http://localhost:5000/notes/deleteNote", {
+          params: { id: id },
+        })
+        .then(
+          (response) => {
+            console.log(response);
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   useEffect(() => {

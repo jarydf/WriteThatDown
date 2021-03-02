@@ -25,6 +25,7 @@
     "jwt-decode": "^3.0.0",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.6",
+    "mongoose-update-if-current": "^1.4.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
