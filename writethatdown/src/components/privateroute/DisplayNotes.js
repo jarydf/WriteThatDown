@@ -21,7 +21,7 @@ const DisplayNotes = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [notes]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
