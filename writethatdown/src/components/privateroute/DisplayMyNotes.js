@@ -10,25 +10,29 @@ const DisplayMyNotes = () => {
   const deleteNote = (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("user");
+      const decode = jwtDecode(token);
+      const user = { userId: decode.id };
+      console.log("userid is " + user.userId);
       const { id } = e.target;
-      console.log(id);
+
       axios
         .delete("http://localhost:5000/notes/deleteNote", {
           params: { id: id },
         })
         .then(
-          (response) => {
-            console.log(response);
+          (res) => {
+            console.log(res);
           },
           (error) => {
             console.log(error);
           }
         )
         .catch((error) => {
-          console.log(error.response.data);
+          console.log(error);
         });
     } catch (error) {
-      console.log(error.response.data);
+      console.log(JSON.stringify(error, null, 2));
     }
   };
 
@@ -71,7 +75,11 @@ const DisplayMyNotes = () => {
               <div className="col-lg-4" key={note._id}>
                 <div className="card" width="18rem">
                   <div className="card-body">
-                    <button id={note._id} onClick={deleteNote}>
+                    <button
+                      id={note._id}
+                      onClick={deleteNote}
+                      className={note.author.username}
+                    >
                       x
                     </button>
                     <h5 className="card-title">{note.title}</h5>

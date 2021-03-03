@@ -34,9 +34,11 @@ const NewNote = () => {
       console.log(error.message);
     }
   }, []);
-  async function onSubmit(e) {
+  const onSubmit = (e) => {
     e.preventDefault();
     try {
+      setStyleHeight({ width: "0vw" });
+      setState({ title: "", body: "", username: state.username });
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const newNote = {
@@ -45,32 +47,22 @@ const NewNote = () => {
         username: state.username,
         userId: decode.id,
       };
-      let update= await axios
-      .post("http://localhost:5000/notes/update", newNote)
-      .then(function (res) {
-        console.log("note created");
-        setStyleHeight({ width: "0vw" });
-        setState({ title: "", body: "", username: state.username });
-      })
-      .catch(function (error) {
-        console.log(error.response.data);
-        console.log("not working");
-      });
-      let create= await axios
-      .post("http://localhost:5000/notes/createNote", newNote)
-      .then(function (res) {
-        console.log("note created");
-        update(newNote);
-      })
-      .catch(function (error) {
-        console.log(error.response.data);
-        console.log("not working");
-      });
-      create(newNote);
-  } catch (error) {
-    console.log(error.message);
-  }
-  }
+
+      axios
+        .post("http://localhost:5000/notes/createNote", newNote)
+
+        .then((res) => {
+          console.log("note created");
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("not working");
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div>

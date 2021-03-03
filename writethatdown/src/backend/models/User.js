@@ -27,12 +27,6 @@ const User = mongoose.model(
       type: Date,
       default: Date.now,
     },
-    notes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Note",
-      },
-    ],
   })
 );
 

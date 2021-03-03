@@ -93,12 +93,26 @@ router.delete("/deleteNote", (req, res) => {
     console.log("id is : " + id);
     if (err) {
       console.log(err);
-      throw err;
     } else {
       console.log("Removed Note : ", data);
       res.status(204).json(data);
     }
   });
+});
+
+router.post("/deleteUpdate", (req, res) => {
+  const { id, userId } = req.body.data;
+  console.log("start of update delete");
+  console.log("userid is " + userId + " and other is " + id);
+  User.findByIdAndUpdate(userId, { $pull: { notes: { _id: id } } })
+    .then((res) => {
+      res.status(204).send(data);
+    })
+    .catch((err) =>
+      res.status(400).send({
+        message: err,
+      })
+    );
 });
 
 module.exports = router;
