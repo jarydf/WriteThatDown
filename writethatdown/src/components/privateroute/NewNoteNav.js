@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./../../css/NewNote.css";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const NewNote = () => {
+const NewNoteNav = () => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
   const [state, setState] = useState({
     title: "",
@@ -50,7 +49,6 @@ const NewNote = () => {
 
       axios
         .post("http://localhost:5000/notes/createNote", newNote)
-
         .then((res) => {
           console.log("note created");
           console.log(res);
@@ -104,12 +102,11 @@ const NewNote = () => {
         </div>
       </div>
       <button
-        id="bottomRightCorner"
         type="button"
         className="btn btn-light"
         onClick={openNav}
-      ></button>
+      >Create A New Note</button>
     </div>
   );
 };
-export default NewNote;
+export default NewNoteNav;

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import NewNote from "./NewNote";
-import "./../../css/Navbar.css";
+import NewNoteNav from "./NewNoteNav";
 
 const Navbar = () => {
   const [displayUsername, setDisplayUsername] = useState("");
@@ -34,9 +33,9 @@ const Navbar = () => {
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="navbar-brand">{displayUsername}</li>
-          <li className="navbar-item">
+          <li className="navbar-item" style={{paddingRight: "1em"}}>
             <div className="CreateNote-nav">
-              <NewNote />
+              <NewNoteNav />
             </div>
           </li>
           <li className="navbar-item">

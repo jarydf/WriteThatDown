@@ -1,4 +1,4 @@
-.CreateNote button{
+#bottomRightCorner{
     position: fixed;
     bottom: 5px;
     right: 5px;
@@ -9,6 +9,6 @@
     font-size: 3em;
     width: 2em;
    }
-   .CreateNote button:after{
+   #bottomRightCorner:after{
     content: '+';
    }
