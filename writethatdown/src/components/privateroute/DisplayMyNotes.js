@@ -55,6 +55,12 @@ const DisplayMyNotes = () => {
       console.log(error.message);
     }
   }, [notes]);
+  
+  useEffect(() => {
+    return () => {
+      console.log("cleaned up");
+    };
+  }, []);
 
   if (error) {
     return <div>Error: {error.message}</div>;

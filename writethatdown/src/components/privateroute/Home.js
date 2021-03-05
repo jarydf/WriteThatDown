@@ -15,10 +15,9 @@ function Home() {
     ) {
       console.log("you aren't logged in");
       history.push("/");
-    } else {
-      console.log("you are still logged in");
     }
   });
+  
 
   return (
     <div className="Home">

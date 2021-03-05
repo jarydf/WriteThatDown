@@ -12,27 +12,69 @@ opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme("JWT");
 opts.secretOrKey = process.env.SECRET;
 
 router.post("/Register", (req, res) => {
-  User.findOne({ email: req.body.email }).then((user) => {
+  User.findOne({
+    $or: [{ email: req.body.email }, { username: req.body.username }],
+  }).then((user) => {
     if (user) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.send({
+        auth: false,
+        message: "Email or username already exists",
+      });
     } else {
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
       });
-      // Hash password before saving in database
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err;
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then((user) => res.json(user))
-            .catch((err) => console.log(err));
+      if (!newUser.password) {
+        return res.send({ auth: false, message: "password is empty" });
+      } else {
+        // Hash password before saving in database
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) {
+            return res.send({
+              auth: false,
+              message: err,
+            });
+          }
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) {
+              return res.send({
+                auth: false,
+                message: err,
+              });
+            } else {
+              newUser.password = hash;
+              newUser
+                .save()
+                .then((user) => {
+                  res.status(200).send({
+                    auth: true,
+                    message: user + " user registered",
+                  });
+                })
+                .catch((error) => {
+                  if (error.name === "ValidationError") {
+                    let errors = {};
+                    Object.keys(error.errors).forEach((key) => {
+                      errors[key] = error.errors[key].message;
+                    });
+                    return res.send({
+                      auth: false,
+                      message: error.errors,
+                    });
+                  } else {
+                    console.log(error.errors);
+                    res.send({
+                      auth: false,
+                      message: "something went wrong",
+                    });
+                  }
+                });
+            }
+          });
         });
-      });
+      }
     }
   });
 });

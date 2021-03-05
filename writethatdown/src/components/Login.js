@@ -50,9 +50,7 @@ const Login = () => {
   useEffect(() => {
     try {
       const token = localStorage.getItem("user");
-      if (token === null) {
-        console.log("not logged in");
-      } else {
+      if (token !== null) {
         console.log("already logged in");
         history.push("/Home");
       }
@@ -60,6 +58,7 @@ const Login = () => {
       console.log(error.message);
     }
   });
+
   return (
     <div>
       <div className="wrapper fadeInDown">

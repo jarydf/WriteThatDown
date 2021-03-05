@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import "./../css/Login.css";
@@ -20,6 +20,9 @@ function Register() {
     confirmPassword: "",
   });
 
+  const errorStyle = useRef(null);
+  const [errorType, setErrorType] = useState({ errors: "" });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({
@@ -29,7 +32,7 @@ function Register() {
     validateField(name, value);
   };
 
-  function validateField(fieldName, value) {
+  const validateField = (fieldName, value) => {
     let usernameValid = formValid.usernameValid;
     let emailValid = formValid.emailValid;
     let passwordValid = formValid.passwordValid;
@@ -58,16 +61,25 @@ function Register() {
       passwordValid: passwordValid,
       confirmPasswordValid: confirmPasswordValid,
     });
-  }
+  };
 
   function onSubmit(e) {
     e.preventDefault();
     setCounter(counter + 1);
+    if (!formValid.usernameValid) {
+      setErrorType({ errors: "username isn't long enough" });
+    } else if (!formValid.emailValid) {
+      setErrorType({ errors: "email isn't in a correct notation" });
+    } else if (!formValid.passwordValid) {
+      setErrorType({ errors: "password isn't long enough" });
+    } else if (!formValid.confirmPasswordValid) {
+      setErrorType({ errors: "passwords don't match" });
+    }
     if (
-      formValid.usernameValid &&
+      formValid.confirmPasswordValid &&
       formValid.emailValid &&
       formValid.passwordValid &&
-      formValid.confirmPasswordValid
+      formValid.usernameValid
     ) {
       const newUser = {
         username: state.username,
@@ -77,24 +89,48 @@ function Register() {
       axios
         .post("http://localhost:5000/users/Register", newUser)
         .then(function (res) {
-          console.log(res);
-          console.log(res.data);
-          history.push("/");
+          if (res.data.auth === true) {
+            console.log(res);
+            console.log(res.data);
+            history.push("/");
+          } else {
+            try {
+              let errors = res.data.message;
+              console.log(errors);
+              if (errors === "password is empty") {
+                setErrorType({ errors: "password is empty" });
+              } else if (errors === "Email or username already exists") {
+                setErrorType({ errors: "Email or username already exists" });
+              } else {
+                Object.keys(errors).forEach((key) => {
+                  if (errors[key]["message"] !== undefined) {
+                    console.log(errors[key]["message"]);
+                    setErrorType({ errors: errors[key]["message"] });
+                  } else {
+                    setErrorType({ errors: "undefined error" });
+                    console.log("undefined errors");
+                  }
+                });
+              }
+            } catch {
+              setErrorType({ errors: "unknown error" });
+              console.log("unknown error");
+            }
+          }
         })
         .catch(function (error) {
-          console.log(error.response.data);
+          setErrorType({ errors: error.message });
+          console.log(error.message);
         });
     } else {
-      console.log("form not valid");
+      console.log("there is an incorrect field");
     }
   }
 
   useEffect(() => {
     try {
       const token = localStorage.getItem("user");
-      if (token === null) {
-        console.log("not logged in");
-      } else {
+      if (token !== null) {
         console.log("already logged in");
         history.push("/Home");
       }
@@ -180,6 +216,7 @@ function Register() {
               <Link to="/" className="navbar-brand">
                 Back to Login
               </Link>
+              <div ref={errorStyle}>{errorType.errors}</div>
               <div />
             </div>
           </div>

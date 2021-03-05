@@ -20,7 +20,7 @@ const User = mongoose.model(
       type: String,
       required: true,
       minlength: 5,
-      maxlength: 1024,
+      maxlength: 255,
       unique: false,
     },
     date: {
