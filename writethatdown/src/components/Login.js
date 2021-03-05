@@ -39,7 +39,11 @@ const Login = () => {
         } else {
           errorStyle.current.className = "alert alert-danger";
           errorStyle.current.role = "alert";
-          setErrorType(res.data.message);
+          if (res.data.message === "bad username") {
+            setErrorType("username doesn't exist");
+          } else {
+            setErrorType(res.data.message);
+          }
           console.log(res.data.message);
         }
       })
