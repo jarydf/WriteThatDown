@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import EditNote from "./EditNote";
 
 const DisplayMyNotes = () => {
   const [notes, setNotes] = useState([]);
@@ -55,7 +56,7 @@ const DisplayMyNotes = () => {
       console.log(error.message);
     }
   }, [notes]);
-  
+
   useEffect(() => {
     return () => {
       console.log("cleaned up");
@@ -82,12 +83,13 @@ const DisplayMyNotes = () => {
                 <div className="card" width="18rem">
                   <div className="card-body">
                     <button
+                      className="btn btn-primary"
                       id={note._id}
                       onClick={deleteNote}
-                      className={note.author.username}
                     >
                       x
                     </button>
+                    <EditNote dataFromParent={note} />
                     <h5 className="card-title">{note.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {note.author.username}
