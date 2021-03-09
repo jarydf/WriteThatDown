@@ -24,16 +24,16 @@ const Navbar = () => {
   }, []);
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      <Link to="/Home" className="navbar-brand">
+      <Link to="/Home/DisplayMyNotes" className="navbar-brand">
         Home
       </Link>
-      <Link to="/PublicNotes" className="navbar-brand">
-        PublicNotes
+      <Link to="/Home/DisplayNotes" className="navbar-brand">
+        Public Notes
       </Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="navbar-brand">{displayUsername}</li>
-          <li className="navbar-item" style={{paddingRight: "1em"}}>
+          <li className="navbar-item" style={{ paddingRight: "1em" }}>
             <div className="CreateNote-nav">
               <NewNoteNav />
             </div>

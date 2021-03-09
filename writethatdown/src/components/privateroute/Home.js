@@ -4,8 +4,10 @@ import Navbar from "./Navbar";
 import NewNote from "./NewNote";
 import DisplayMyNotes from "./DisplayMyNotes";
 import "./../../css/FixedButton.css";
+import { Route } from "react-router-dom";
+import DisplayNotes from "./DisplayNotes";
 
-function Home() {
+const Home = () => {
   const history = useHistory();
 
   useEffect(() => {
@@ -17,7 +19,6 @@ function Home() {
       history.push("/");
     }
   });
-  
 
   return (
     <div className="Home">
@@ -25,10 +26,21 @@ function Home() {
       <div className="CreateNote">
         <NewNote />
       </div>
-      <div className="DisplayMyNotes">
-        <DisplayMyNotes />
-      </div>
+
+      <Route
+        component={DisplayMyNotes}
+        path={["/Home", "/Home/DisplayMyNotes"]}
+        exact
+        className="DisplayMyNotes"
+      />
+
+      <Route
+        component={DisplayNotes}
+        path="/Home/DisplayNotes"
+        className="DisplayNotes"
+        exact
+      />
     </div>
   );
-}
+};
 export default Home;
