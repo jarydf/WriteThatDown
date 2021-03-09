@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 const EditNote = ({ dataFromParent }) => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
   const [state, setState] = useState({
-    title: "",
-    body: "",
-    username: "",
+    title: dataFromParent.title,
+    body: dataFromParent.body,
+    username: dataFromParent.username,
+    noteId: dataFromParent._id,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,19 +27,40 @@ const EditNote = ({ dataFromParent }) => {
 
   const editNote = (e) => {
     e.preventDefault();
-    openNav();
     try {
+      closeNav();
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
-      const { id } = e.target;
-      console.log(id + " " + user.userId);
-    } catch {}
+
+      const editedNote = {
+        title: state.title,
+        body: state.body,
+        username: state.username,
+        noteId: state.noteId,
+        userId: user.userId,
+      };
+      console.log(state.noteId);
+
+      axios
+        .post("http://localhost:5000/notes/editNote", editedNote)
+
+        .then((res) => {
+          console.log("note updated");
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("not working");
+          console.log(err.response.data.message);
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
-    <div>
-      <button id={dataFromParent} onClick={editNote} className="btn pull-right">
+    <div className="editNote">
+      <button onClick={openNav} className="btn pull-right">
         edit
       </button>
       <div className="overlay" style={styleHeight}>

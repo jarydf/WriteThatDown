@@ -37,7 +37,7 @@ const NewNote = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     try {
-      setStyleHeight({ width: "0vw" });
+      closeNav();
       setState({ title: "", body: "", username: state.username });
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
