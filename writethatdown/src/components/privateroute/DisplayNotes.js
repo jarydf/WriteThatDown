@@ -44,7 +44,7 @@ const DisplayNotes = () => {
         {group(notes, 3).map((rows, i) => (
           <div className="row" key={i}>
             {rows.map((note) => (
-              <div className="col-lg-4" key={note._id}>
+              <div className="col-lg-4 p-3 border bg-light" key={note._id}>
                 <div className="card" width="18rem">
                   <div className="card-body">
                     <h5 className="card-title">{note.title}</h5>

@@ -60,7 +60,7 @@ const EditNote = ({ dataFromParent }) => {
 
   return (
     <div className="editNote">
-      <button onClick={openNav} className="btn pull-right">
+      <button onClick={openNav} className="btn btn-primary float-right">
         edit
       </button>
       <div className="overlay" style={styleHeight}>

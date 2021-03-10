@@ -77,19 +77,21 @@ const DisplayMyNotes = () => {
     return (
       <div className="notes">
         {group(notes, 3).map((rows, i) => (
-          <div className="row" key={i}>
+          <div className="row " key={i}>
             {rows.map((note) => (
-              <div className="col-lg-4" key={note._id}>
+              <div className="col-lg-4 p-3 border bg-light" key={note._id}>
                 <div className="card" width="18rem">
-                  <div className="card-body">
+                  <div className=".d-inline-flex">
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-danger float-left"
                       id={note._id}
                       onClick={deleteNote}
                     >
                       x
                     </button>
                     <EditNote dataFromParent={note} />
+                  </div>
+                  <div className="card-body">
                     <h5 className="card-title">{note.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {note.author.username}
