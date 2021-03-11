@@ -8,7 +8,7 @@ const opts = {};
 require("dotenv").config();
 
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme("JWT");
-opts.secretOrKey = process.env.SECRET;
+opts.secretOrKey = process.env.REACT_APP_SECRET;
 
 //passport needs this for some reason
 // passport.serializeUser(function (user, done) {

@@ -9,7 +9,7 @@ const opts = {};
 require("dotenv").config();
 
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme("JWT");
-opts.secretOrKey = process.env.SECRET;
+opts.secretOrKey = process.env.REACT_APP_SECRET;
 
 router.post("/Register", (req, res) => {
   User.findOne({

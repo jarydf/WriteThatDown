@@ -4,14 +4,13 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const usersRouter = require("./routes/users");
 const notesRouter = require("./routes/notes");
-require("dotenv").config();
 
 const app = express();
-const port = process.env.SERVERPORT;
+const port = process.env.REACT_APP_SERVERPORT;
 
 app.use(cors());
 app.use(express.json());
-const uri = process.env.ATLAS_URI;
+const uri = process.env.REACT_APP_ATLAS_URI;
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,

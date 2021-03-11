@@ -23,7 +23,7 @@ const Login = () => {
       password: state.password,
     };
     axios
-      .post("http://localhost:5000/users/Login", newLogin)
+      .post(`${process.env.REACT_APP_MONGOURL}/users/Login`, newLogin)
       .then((res) => {
         if (res.data.auth === true) {
           localStorage.setItem("user", JSON.stringify(res.data));

@@ -43,7 +43,7 @@ const EditNote = ({ dataFromParent }) => {
       console.log(state.noteId);
 
       axios
-        .post("http://localhost:5000/notes/editNote", editedNote)
+        .post(`${process.env.REACT_APP_MONGOURL}/notes/editNote`, editedNote)
 
         .then((res) => {
           console.log("note updated");
