@@ -48,7 +48,7 @@ const NewNoteNav = () => {
       };
 
       axios
-        .post("http://localhost:5000/notes/createNote", newNote)
+        .post(`${process.env.REACT_APP_MONGOURL}/notes/createNote`, newNote)
         .then((res) => {
           console.log("note created");
           console.log(res);
@@ -101,11 +101,9 @@ const NewNoteNav = () => {
           />
         </div>
       </div>
-      <button
-        type="button"
-        className="btn btn-light"
-        onClick={openNav}
-      >Create A New Note</button>
+      <button type="button" className="btn btn-light" onClick={openNav}>
+        Create A New Note
+      </button>
     </div>
   );
 };

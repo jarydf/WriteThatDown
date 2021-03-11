@@ -49,7 +49,7 @@ const NewNote = () => {
       };
 
       axios
-        .post("http://localhost:5000/notes/createNote", newNote)
+        .post(`${process.env.REACT_APP_MONGOURL}/notes/createNote`, newNote)
 
         .then((res) => {
           console.log("note created");

@@ -18,7 +18,7 @@ const DisplayMyNotes = () => {
       const { id } = e.target;
 
       axios
-        .delete("http://localhost:5000/notes/deleteNote", {
+        .delete(`${process.env.REACT_APP_MONGOURL}/notes/deleteNote`, {
           params: { id: id },
         })
         .then(
@@ -42,16 +42,18 @@ const DisplayMyNotes = () => {
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
-      axios.post("http://localhost:5000/notes/getMyNotes", user).then(
-        (response) => {
-          setIsLoaded(true);
-          setNotes(response.data);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
+      axios
+        .post(`${process.env.REACT_APP_MONGOURL}/notes/getMyNotes`, user)
+        .then(
+          (response) => {
+            setIsLoaded(true);
+            setNotes(response.data);
+          },
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
+          }
+        );
     } catch (error) {
       console.log(error.message);
     }

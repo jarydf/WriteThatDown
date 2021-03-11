@@ -87,7 +87,7 @@ function Register() {
         password: state.password,
       };
       axios
-        .post("http://localhost:5000/users/Register", newUser)
+        .post(`${process.env.REACT_APP_MONGOURL}/users/Register`, newUser)
         .then(function (res) {
           if (res.data.auth === true) {
             console.log(res);

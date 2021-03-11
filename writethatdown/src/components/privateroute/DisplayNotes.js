@@ -8,7 +8,7 @@ const DisplayNotes = () => {
 
   useEffect(() => {
     try {
-      axios.get("http://localhost:5000/notes/getNotes").then(
+      axios.get(`${process.env.REACT_APP_MONGOURL}/notes/getNotes`).then(
         (response) => {
           setIsLoaded(true);
           setNotes(response.data);
