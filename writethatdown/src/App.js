@@ -1,20 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Home from "./components/privateroute/Home";
 
-import Navbar from "./components/navbar.component"
-import CreateUser from "./components/create-user.component";
-
-function App() {
+const App = () => {
   return (
-    <Router>
-      <div className="container">
-        <Navbar />
-        <br/>
-        <Route path="/user" component={CreateUser} />
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Switch>
+        <Route component={Login} path="/" exact />
+        <Route component={Register} path="/Register" exact />
+        <Route component={Home} path="/Home" />
+      </Switch>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
