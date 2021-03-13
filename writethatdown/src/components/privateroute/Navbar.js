@@ -32,7 +32,11 @@ const Navbar = () => {
       </Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
-          <li className="navbar-brand">{displayUsername}</li>
+          <li className="navbar-brand">
+            <Link to="/Home/Profile" className="navbar-brand">
+              {displayUsername}
+            </Link>
+          </li>
           <li className="navbar-item" style={{ paddingRight: "1em" }}>
             <div className="CreateNote-nav">
               <NewNoteNav />

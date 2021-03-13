@@ -6,6 +6,7 @@ import DisplayMyNotes from "./DisplayMyNotes";
 import "./../../css/FixedButton.css";
 import { Route } from "react-router-dom";
 import DisplayNotes from "./DisplayNotes";
+import Profile from "./Profile";
 
 const Home = () => {
   const history = useHistory();
@@ -38,6 +39,12 @@ const Home = () => {
         component={DisplayNotes}
         path="/Home/DisplayNotes"
         className="DisplayNotes"
+        exact
+      />
+      <Route
+        component={Profile}
+        path="/Home/Profile"
+        className="profile"
         exact
       />
     </div>
