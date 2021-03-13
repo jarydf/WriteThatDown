@@ -9,7 +9,6 @@ const Profile = () => {
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
-
     } catch (error) {
       console.log(error.message);
     }
@@ -42,9 +41,9 @@ const Profile = () => {
                       className="nav-link active"
                       id="home-tab"
                       data-toggle="tab"
-                      href="#home"
+                      href="#profile-home"
                       role="tab"
-                      aria-controls="home"
+                      aria-controls="profile-home"
                       aria-selected="true"
                     >
                       About
@@ -55,9 +54,9 @@ const Profile = () => {
                       className="nav-link"
                       id="profile-tab"
                       data-toggle="tab"
-                      href="#profile"
+                      href="#profile-timeline"
                       role="tab"
-                      aria-controls="profile"
+                      aria-controls="profile-timeline"
                       aria-selected="false"
                     >
                       Timeline
@@ -100,18 +99,10 @@ const Profile = () => {
               <div className="tab-content profile-tab" id="myTabContent">
                 <div
                   className="tab-pane fade show active"
-                  id="home"
+                  id="profile-home"
                   role="tabpanel"
-                  aria-labelledby="home-tab"
+                  aria-labelledby="home"
                 >
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>User Id</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Kshiti123</p>
-                    </div>
-                  </div>
                   <div className="row">
                     <div className="col-md-6">
                       <label>Name</label>
@@ -147,7 +138,7 @@ const Profile = () => {
                 </div>
                 <div
                   className="tab-pane fade"
-                  id="profile"
+                  id="profile-timeline"
                   role="tabpanel"
                   aria-labelledby="profile-tab"
                 >
