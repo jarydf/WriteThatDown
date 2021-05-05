@@ -14,3 +14,9 @@ code {
 #root {
   background-color: white;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  color: black;
+}
