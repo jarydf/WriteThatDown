@@ -1,14 +1,20 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Home from "./components/privateroute/Home";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p> hello world </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route component={Login} path="/" exact />
+        <Route component={Register} path="/Register" exact />
+        <Route component={Home} path="/Home" />
+      </Switch>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
