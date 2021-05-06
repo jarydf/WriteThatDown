@@ -11,12 +11,7 @@ const DisplayMyNotes = () => {
   const deleteNote = (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("user");
-      const decode = jwtDecode(token);
-      const user = { userId: decode.id };
-      console.log("userid is " + user.userId);
       const { id } = e.target;
-
       axios
         .delete(`${process.env.REACT_APP_MONGOURL}/notes/deleteNote`, {
           params: { id: id },
@@ -58,12 +53,6 @@ const DisplayMyNotes = () => {
       console.log(error.message);
     }
   }, [notes]);
-
-  useEffect(() => {
-    return () => {
-      console.log("cleaned up");
-    };
-  }, []);
 
   if (error) {
     return <div>Error: {error.message}</div>;

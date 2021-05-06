@@ -120,4 +120,14 @@ router.post("/Login", (req, res, next) => {
   })(req, res, next);
 });
 
+router.get("/getUserInfo", (req, res) => {
+  User.findById(req.query.userId, function (err, user) {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      return res.status(200).send(user);
+    }
+  });
+});
+
 module.exports = router;
