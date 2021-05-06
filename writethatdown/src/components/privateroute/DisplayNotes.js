@@ -19,6 +19,7 @@ const DisplayNotes = () => {
         }
       );
     } catch (error) {
+      setIsLoaded(true);
       console.log(error.message);
     }
   }, [notes]);
