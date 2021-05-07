@@ -11,10 +11,13 @@ const User = mongoose.model(
     },
     email: {
       type: String,
-      required: true,
+      lowercase: true,
+      unique: true,
+      required: [true, "can't be blank"],
+      match: [/\S+@\S+\.\S+/, "is invalid"],
+      index: true,
       minlength: 5,
       maxlength: 255,
-      unique: true,
     },
     password: {
       type: String,
@@ -27,6 +30,17 @@ const User = mongoose.model(
       type: Date,
       default: Date.now,
     },
+    phone: {
+      type: Number,
+      validate: {
+        validator: function (v) {
+          return /d{10}/.test(v);
+        },
+        message: "{VALUE} is not a valid 10 digit number!",
+      },
+      unique: true,
+    },
+    bio: { type: String, maxlength: 255, unique: false, required: false },
   })
 );
 

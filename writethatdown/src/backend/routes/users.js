@@ -130,4 +130,28 @@ router.get("/getUserInfo", (req, res) => {
   });
 });
 
+router.post("/editUser", (req, res) => {
+  let query = { _id: req.body.userId };
+  const editedUserInfo = new User({
+    _id: req.body.userId,
+    bio: req.body.bio,
+    phone: req.body.phone,
+  });
+  User.findOneAndUpdate(query, editedUserInfo, { new: true, upsert: true })
+    .then((user) => {
+      if (!user) {
+        return res.status(500).send({
+          message: "User doesn't exist",
+        });
+      } else {
+        return res.send(user + " success!");
+      }
+    })
+    .catch((err) =>
+      res.status(500).send({
+        message: err,
+      })
+    );
+});
+
 module.exports = router;

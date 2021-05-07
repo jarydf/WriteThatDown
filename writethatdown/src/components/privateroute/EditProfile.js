@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const EditNote = ({ dataFromParent }) => {
+const EditProfile = ({ dataFromParent }) => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
   const [state, setState] = useState({
-    title: dataFromParent.title,
-    body: dataFromParent.body,
-    username: dataFromParent.username,
-    noteId: dataFromParent._id,
+    userId: dataFromParent._id,
+    phone: dataFromParent.phone,
+    bio: dataFromParent.bio,
   });
+  console.log("data from parent: " + dataFromParent._id);
+  console.log("data from parent state: " + state.userId);
+  console.log("state bio: " + state.bio);
+  console.log("state phone: " + state.phone);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -25,7 +29,7 @@ const EditNote = ({ dataFromParent }) => {
     console.log("shorten height");
   };
 
-  const editNote = (e) => {
+  const editProfile = (e) => {
     e.preventDefault();
     try {
       closeNav();
@@ -33,20 +37,20 @@ const EditNote = ({ dataFromParent }) => {
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
 
-      const editedNote = {
-        title: state.title,
-        body: state.body,
-        username: state.username,
-        noteId: state.noteId,
+      const editedUserInfo = {
+        phone: state.phone,
+        bio: state.bio,
         userId: user.userId,
       };
-      console.log(state.noteId);
 
       axios
-        .post(`${process.env.REACT_APP_MONGOURL}/notes/editNote`, editedNote)
+        .post(
+          `${process.env.REACT_APP_MONGOURL}/users/editUser`,
+          editedUserInfo
+        )
 
         .then((res) => {
-          console.log("note updated");
+          console.log("user info updated");
           console.log(res);
         })
         .catch((err) => {
@@ -59,9 +63,9 @@ const EditNote = ({ dataFromParent }) => {
   };
 
   return (
-    <div className="editNote">
-      <button onClick={openNav} className="btn btn-primary float-right">
-        edit
+    <div className="editProfile">
+      <button type="submit" className="btn btn-primary" onClick={openNav}>
+        Edit Profile
       </button>
       <div className="overlay" style={styleHeight}>
         <button
@@ -78,29 +82,30 @@ const EditNote = ({ dataFromParent }) => {
             <input
               type="text"
               className="fadeIn second"
-              placeholder="title"
-              value={state.title || ""}
+              placeholder="phone number"
+              value={state.phone || ""}
               onChange={handleChange}
-              name="title"
+              name="phone"
             />
             <textarea
               className="form-control"
               id="exampleFormControlTextarea1"
               rows="10"
-              value={state.body}
+              value={state.bio || ""}
               onChange={handleChange}
-              name="body"
+              name="bio"
             ></textarea>
           </form>
           <input
             type="submit"
             className="fadeIn fourth"
             value="Edit"
-            onClick={editNote}
+            onClick={editProfile}
           />
         </div>
       </div>
     </div>
   );
 };
-export default EditNote;
+
+export default EditProfile;
