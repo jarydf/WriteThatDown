@@ -3,7 +3,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import "./../../css/EditProfile.css";
 
-const EditProfile = ({}) => {
+const EditProfile = () => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
   const [state, setState] = useState({
     phone: "",
@@ -36,8 +36,15 @@ const EditProfile = ({}) => {
   }, []);
 
   const handleChange = (e) => {
+    const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    if (name === "phone") {
+      if (rx_live.test(value)) {
+        setState((prevState) => ({ ...prevState, [name]: value }));
+      }
+    } else {
+      setState((prevState) => ({ ...prevState, [name]: value }));
+    }
   };
 
   const openNav = () => {
@@ -48,12 +55,33 @@ const EditProfile = ({}) => {
   const closeNav = () => {
     setStyleHeight({ width: "0vw" });
     console.log("shorten height");
+    try {
+      const token = localStorage.getItem("user");
+      const decode = jwtDecode(token);
+      const user = { userId: decode.id };
+      axios
+        .get(`${process.env.REACT_APP_MONGOURL}/users/getUserInfo`, {
+          params: user,
+        })
+        .then(
+          (response) => {
+            setState({
+              phone: response.data.phone,
+              bio: response.data.bio,
+            });
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const editProfile = (e) => {
     e.preventDefault();
     try {
-      closeNav();
       const token = localStorage.getItem("user");
       const decode = jwtDecode(token);
       const user = { userId: decode.id };
@@ -74,6 +102,7 @@ const EditProfile = ({}) => {
           console.log("not working");
           console.log(err.response.data.message);
         });
+      closeNav();
     } catch (error) {
       console.log(error.message);
     }
@@ -105,6 +134,8 @@ const EditProfile = ({}) => {
               value={state.phone}
               onChange={handleChange}
               id="phone"
+              maxLength={10}
+              pattern="[+-]?\d+(?:[.,]\d+)?"
             />
             <textarea
               className="form-control"
