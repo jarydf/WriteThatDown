@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import "./../../css/EditNote.css";
 
 const EditNote = ({ dataFromParent }) => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
@@ -82,6 +83,7 @@ const EditNote = ({ dataFromParent }) => {
               value={state.title || ""}
               onChange={handleChange}
               name="title"
+              id="title"
             />
             <textarea
               className="form-control"
@@ -90,6 +92,7 @@ const EditNote = ({ dataFromParent }) => {
               value={state.body}
               onChange={handleChange}
               name="body"
+              id="body"
             ></textarea>
           </form>
           <input

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import "./../../css/NewNoteNavBar.css";
 
 const NewNoteNav = () => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
@@ -83,6 +84,7 @@ const NewNoteNav = () => {
               value={state.title || ""}
               onChange={handleChange}
               name="title"
+              id="title"
             />
             <textarea
               className="form-control"
@@ -91,6 +93,7 @@ const NewNoteNav = () => {
               value={state.body}
               onChange={handleChange}
               name="body"
+              id="body"
             ></textarea>
           </form>
           <input
