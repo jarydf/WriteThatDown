@@ -8,9 +8,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState({});
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  // console.log(userInfo._id);
   JSON.stringify(userInfo);
-  console.log(userInfo);
 
   useEffect(() => {
     try {
@@ -25,7 +23,6 @@ const Profile = () => {
           (response) => {
             setIsLoaded(true);
             setUserInfo(response.data);
-            console.log(userInfo);
           },
           (error) => {
             setIsLoaded(true);
@@ -87,21 +84,21 @@ const Profile = () => {
             <div className="col-md-4">
               <div className="profile-work">
                 <p>WORK LINK</p>
-                <a href>Website Link</a>
+                <a href="#profile-home">Website Link</a>
                 <br />
-                <a href>Bootsnipp Profile</a>
+                <a href="#profile-home">Bootsnipp Profile</a>
                 <br />
-                <a href>Bootply Profile</a>
+                <a href="#profile-home">Bootply Profile</a>
                 <p>SKILLS</p>
-                <a href>Web Designer</a>
+                <a href="#profile-home">Web Designer</a>
                 <br />
-                <a href>Web Developer</a>
+                <a href="#profile-home">Web Developer</a>
                 <br />
-                <a href>WordPress</a>
+                <a href="#profile-home">WordPress</a>
                 <br />
-                <a href>WooCommerce</a>
+                <a href="#profile-home">WooCommerce</a>
                 <br />
-                <a href>PHP, .Net</a>
+                <a href="#profile-home">PHP, .Net</a>
                 <br />
               </div>
             </div>

@@ -31,12 +31,12 @@ const User = mongoose.model(
       default: Date.now,
     },
     phone: {
-      type: Number,
+      type: String,
       validate: {
         validator: function (v) {
-          return /d{10}/.test(v);
+          return /\d{3}-\d{3}-\d{4}/.test(v);
         },
-        message: "{VALUE} is not a valid 10 digit number!",
+        message: (props) => `${props.value} is not a valid phone number!`,
       },
       unique: true,
     },
