@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import EditNote from "./EditNote";
+import "./../../styles/display-my-notes.scss";
 
 const DisplayMyNotes = () => {
   const [notes, setNotes] = useState([]);

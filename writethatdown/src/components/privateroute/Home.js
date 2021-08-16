@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewNote from "./NewNote";
 import DisplayMyNotes from "./DisplayMyNotes";
-import "./../../css/FixedButton.css";
+import "./../../styles/fixed-button.scss";
 import { Route } from "react-router-dom";
 import DisplayNotes from "./DisplayNotes";
 import Profile from "./Profile";

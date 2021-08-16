@@ -1,4 +1,4 @@
-import "./../../css/Profile.css";
+import "./../../styles/profile.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./../../css/NewNote.css";
+import "./../../styles/new-note.scss";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
@@ -88,7 +88,6 @@ const NewNote = () => {
             />
             <textarea
               className="form-control"
-              id="exampleFormControlTextarea1"
               rows="10"
               value={state.body}
               onChange={handleChange}
