@@ -1,0 +1,15 @@
+#bottomRightCorner {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
+  border-radius: 50%;
+  color: white;
+  background-color: #0275d8;
+  font-size: 3em;
+  width: 2em;
+}
+
+#bottomRightCorner:after {
+  content: "+";
+}

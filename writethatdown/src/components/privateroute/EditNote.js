@@ -10,6 +10,7 @@ const EditNote = ({ dataFromParent }) => {
     username: dataFromParent.username,
     noteId: dataFromParent._id,
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -89,8 +90,6 @@ const EditNote = ({ dataFromParent }) => {
               rows="10"
               value={state.body}
               onChange={handleChange}
-              name="body"
-              id="body"
             ></textarea>
           </form>
           <input

@@ -9,6 +9,7 @@ const NewNoteNav = () => {
     body: "",
     username: "",
   });
+
   const openNav = () => {
     setStyleHeight({ width: "100vw" });
     console.log("expand height");
@@ -90,8 +91,6 @@ const NewNoteNav = () => {
               rows="10"
               value={state.body}
               onChange={handleChange}
-              name="body"
-              id="body"
             ></textarea>
           </form>
           <input
