@@ -1,4 +1,3 @@
-@import "./App.scss";
 @import "./fixed-button.scss";
 @import "./login.scss";
 @import "./text-editor.scss";
@@ -26,5 +25,26 @@ body {
     left: 0;
     bottom: 0;
     color: black;
+  }
+
+$primaryColor:#61dafb;
+$headerColor:#282c34;
+.App {
+    text-align: center;
+  }
+  
+  .App-header {
+    background-color: $headerColor;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: $primaryColor;
   }
   
