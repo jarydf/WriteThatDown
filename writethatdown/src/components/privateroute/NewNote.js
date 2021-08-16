@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./../../styles/new-note.scss";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 

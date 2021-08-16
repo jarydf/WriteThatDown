@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import "./../../styles/edit-note.scss";
 
 const EditNote = ({ dataFromParent }) => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });

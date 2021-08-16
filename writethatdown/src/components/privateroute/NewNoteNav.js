@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import "./../../styles/new-note-nav-bar.scss";
 
 const NewNoteNav = () => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });

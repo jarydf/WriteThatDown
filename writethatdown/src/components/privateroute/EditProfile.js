@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import "./../../styles/edit-profile.scss";
 
 const EditProfile = () => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });

@@ -1,4 +1,3 @@
-import "./../../styles/profile.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
@@ -46,8 +45,8 @@ const Profile = () => {
             <div className="col-md-4">
               <div className="profile-img">
                 <img
-                  src="https://www.jarydfisher.com/images/Portfolio.jpg"
-                  alt=""
+                  src="https://avatars.githubusercontent.com/u/35238599?s=400&u=9cad0b233ce2c013e57256118a3f967e85070999&v=4"
+                  alt="Jaryd's profile pic"
                 />
                 <div className="file btn btn-lg btn-primary">
                   Change Photo
