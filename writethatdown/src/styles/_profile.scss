@@ -1,4 +1,30 @@
 $profileColor:#0062cc;
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+
+  @mixin absolute($args...) {
+    @include position(absolute, $args...);
+  }
+  
+  /// Shorthand mixin for relative positioning
+  /// Serves as an alias for `position(relative, ...)`
+  /// @param {Arglist} $args - Offsets
+  @mixin relative($args...) {
+    @include position(relative, $args...);
+  }
+  
+  /// Shorthand mixin for fixed positioning
+  /// Serves as an alias for `position(fixed, ...)`
+  /// @param {Arglist} $args - Offsets
+  /// @require {mixin} position
+  @mixin fixed($args...) {
+    @include position(fixed, $args...);
+  }
 
 .emp-profile{
     padding: 3%;
@@ -32,6 +58,7 @@ $profileColor:#0062cc;
 }
 .profile-head h5{
     color: #333;
+    font-size: 2em;
 }
 .profile-head h6{
     color: $profileColor;
@@ -90,4 +117,8 @@ $profileColor:#0062cc;
 .profile-tab p{
     font-weight: 600;
     color: $profileColor;
+}
+
+.nav.nav-tabs{
+    @include absolute($bottom: 1em);
 }

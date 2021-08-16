@@ -78,8 +78,6 @@ const Profile = () => {
             <div className="col-md-2">
               <EditProfile dataFromParent={userInfo} />
             </div>
-          </div>
-          <div className="row">
             <div className="col-md-4">
               <div className="profile-work">
                 <p>WORK LINK</p>

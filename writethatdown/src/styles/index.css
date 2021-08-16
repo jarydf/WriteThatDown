@@ -405,6 +405,7 @@ form h1 {
 
 .profile-head h5 {
   color: #333;
+  font-size: 2em;
 }
 
 .profile-head h6 {
@@ -476,6 +477,11 @@ form h1 {
 .profile-tab p {
   font-weight: 600;
   color: #0062cc;
+}
+
+.nav.nav-tabs {
+  position: absolute;
+  bottom: 1em;
 }
 
 body {
