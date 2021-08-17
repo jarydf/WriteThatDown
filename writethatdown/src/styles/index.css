@@ -533,4 +533,8 @@ code {
 .App-link {
   color: #61dafb;
 }
+
+.ck-editor__editable {
+  min-height: 60vh;
+}
 /*# sourceMappingURL=index.css.map */

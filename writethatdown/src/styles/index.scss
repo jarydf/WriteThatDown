@@ -49,3 +49,7 @@ $headerColor:#282c34;
 .App-link {
   color: $primaryColor;
 }
+
+.ck-editor__editable {
+  min-height: 60vh;
+}

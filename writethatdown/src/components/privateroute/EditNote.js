@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditNote = ({ dataFromParent }) => {
   const [styleHeight, setStyleHeight] = useState({ width: "0vw" });
@@ -85,12 +87,18 @@ const EditNote = ({ dataFromParent }) => {
               name="title"
               id="title"
             />
-            <textarea
-              className="form-control"
-              rows="10"
-              value={state.body}
-              onChange={handleChange}
-            ></textarea>
+            <CKEditor
+              name="body"
+              className="form-control text-editor"
+              editor={ClassicEditor}
+              data={state.body}
+              onChange={(e, editor) => {
+                setState((prevState) => ({
+                  ...prevState,
+                  body: editor.getData(),
+                }));
+              }}
+            />
           </form>
           <input
             type="submit"
