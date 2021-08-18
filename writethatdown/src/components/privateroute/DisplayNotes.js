@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import parse from "html-react-parser";
 
 const DisplayNotes = () => {
   const [notes, setNotes] = useState([]);
@@ -47,7 +48,7 @@ const DisplayNotes = () => {
                     <h6 className="card-subtitle mb-2 text-muted">
                       {note.author.username}
                     </h6>
-                    <p className="card-text">{note.body}</p>
+                    <p className="card-text">{parse(note.body)}</p>
                   </div>
                 </div>
               </div>

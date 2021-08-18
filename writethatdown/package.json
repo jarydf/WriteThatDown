@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "generator-helper": "^0.2.0",
     "history": "^5.0.1",
+    "html-react-parser": "^1.2.8",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
